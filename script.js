@@ -50,12 +50,25 @@ operators.forEach((btn) => {
 }); 
 
 function handleOperator(op) {
-    operator = op; 
-    previousNum = currentNum;
+    if (previousNum === "") {
+      previousNum = currentNum;
+      operatorCheck(op);
+    } else if (currentNum === "") {
+      operatorCheck(op);
+    } else {
+      calculate();
+      operator = op;
+      currentDisplayNumber.textContent = "0";
+      previousDisplayNumber.textContent = previousNum + " " + operator;
+    }
+  }
+  
+  function operatorCheck(text) {
+    operator = text;
     previousDisplayNumber.textContent = previousNum + " " + operator;
+    currentDisplayNumber.textContent = "0";
     currentNum = "";
-    currentDisplayNumber.textContent = ""; 
-}
+  }
 
 function calculate() {
     previousNum = Number(previousNum);
@@ -94,6 +107,9 @@ function displayResults() {
     } else {
         currentDisplayNumber.textContent = previousNum.slice(0, 11) + "...";
     }
+    previousDisplayNumber.textContent = "";
+    operator = "";
+    currentNum = "";
 }
 
 function addDecimal() {
@@ -119,7 +135,12 @@ function back() {
             currentDisplayNumber.textContent = "0";
         }
     }
+    if (currentNum === "" && previousNum !== "" && operator === "") {
+        previousNum = previousNum.slice(0, -1);
+        currentDisplayNumber.textContent = previousNum;
+    }
 }
+
 // Does not display current when used 
 function posNeg() { 
     if (currentNum > 0) {
@@ -133,3 +154,24 @@ function posNeg() {
     }
 }
 
+// function handleKeyPress(e) {
+//     e.preventDefault()
+//     if(e.key >= 0 && e.key <= 9) {
+//         handleNumber(e.key)
+//     }
+//     if (
+//         e.key === "Enter" ||
+//         (e.key === "=" && currentNum != "" && previousNum != "")
+//     ) {
+//         calculate();
+//     }
+//     if (e.key === "+" || e.key === "-" || e.key === "/") {
+//         handleOperator(e.key);
+//     }
+//     if (e.key === "*") {
+//         handleOperator("x");
+//     }
+//     if (e.key === ".") {
+//         addDecimal();
+//     }
+// }
