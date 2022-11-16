@@ -23,6 +23,9 @@ clear.addEventListener("click", clearCalculator);
 const backSpace = document.querySelector(".backspace")
 backSpace.addEventListener("click", back);
 
+const plusMinus = document.querySelector(".plusMinus")
+plusMinus.addEventListener("click", posNeg); 
+
 
 const numberButtons = document.querySelectorAll(".number")
 const operators = document.querySelectorAll(".operator")
@@ -117,3 +120,16 @@ function back() {
         }
     }
 }
+// Does not display current when used 
+function posNeg() { 
+    if (currentNum > 0) {
+        currentNum = currentNum * -1;
+        currentDisplayNumber.textContent = currentNum.toString();
+    } else {
+        if (currentNum < 0) {
+            currentNum = currentNum * -1;
+            currentDisplayNumber.textContent = currentNum.toString();
+        }
+    }
+}
+

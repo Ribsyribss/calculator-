@@ -48,7 +48,7 @@ body {
     font-size: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
-.equal, .decimal, .backspace, .clear {
+.equal, .decimal, .backspace, .clear, .plusMinus {
     width: 50px;
     height: 50px;
     margin: 15px;
@@ -59,6 +59,9 @@ body {
     font-size: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
+.decimal, .plusMinus {
+    font-size: 20px;
+}
 .equal {
     font-size: 20px;
     background-color: azure;
@@ -66,13 +69,13 @@ body {
 .number, .empty {
     background-color: white;
 }
-.number, .operator, .decimal, .equal, .backspace, .clear{
+.number, .operator, .decimal, .equal, .backspace, .clear, .plusMinus{
     cursor: pointer;
 }
-.operator:active, .number:active {
+.operator:active, .number:active, .decimal:active, .equal:active, .backspace:active, .clear:active, .plusMinus:active {
     font-size: 13px;
 }
-.operator:focus, .number:focus, .empty:focus {
+.operator:focus, .number:focus, .decimal:focus, .equal:focus, .backspace:focus, .clear:focus, .plusMinus:focus {
     outline: 0;
 }
 .operator:nth-child(4) {
