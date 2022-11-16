@@ -5,11 +5,25 @@ let operator = "";
 const currentDisplayNumber = document.getElementById("currentNum");
 const previousDisplayNumber = document.getElementById("previousNum");
 
-const equal = document.getElementById("=");
-equal.addEventListener('click', calculate); 
+const equal = document.querySelector(".equal");
+equal.addEventListener('click', () => {
+    if (currentNum != "" && previousNum != "") {
+        calculate();
+    }
+}); 
 
-const decimal = document.getElementById(".");
-const clear = document.getElementById("clear")
+const decimal = document.querySelector(".decimal");
+decimal.addEventListener('click', () => {
+    addDecimal();
+})
+
+const clear = document.querySelector(".clear")
+clear.addEventListener("click", clearCalculator);
+
+const backSpace = document.querySelector(".backspace")
+backSpace.addEventListener("click", back);
+
+
 const numberButtons = document.querySelectorAll(".number")
 const operators = document.querySelectorAll(".operator")
 
@@ -58,8 +72,15 @@ function calculate() {
         }
         previousNum = previousNum / currentNum;
     }
+    currentNum = roundNumber(currentNum);
+    currentNum = currentNum.toString();
+    previousNum = roundNumber(previousNum);
     previousNum = previousNum.toString();
-    displayResults;
+    displayResults();
+}
+
+function roundNumber(num) {
+    return Math.round(num * 100000) / 100000; 
 }
 
 function displayResults() { 
@@ -69,5 +90,30 @@ function displayResults() {
         currentDisplayNumber.textContent = previousNum;
     } else {
         currentDisplayNumber.textContent = previousNum.slice(0, 11) + "...";
+    }
+}
+
+function addDecimal() {
+    if (!currentNum.includes(".")) {
+        currentNum += ".";
+        currentDisplayNumber.textContent = currentNum;
+    }   
+}
+
+function clearCalculator() {
+    currentNum = "";
+    previousNum = "";
+    operator = "";
+    currentDisplayNumber.textContent = "0";
+    previousDisplayNumber.textContent = ""; 
+}
+
+function back() {
+    if (currentNum !== "") {
+        currentNum = currentNum.slice(0, -1);
+        currentDisplayNumber.textContent = currentNum;
+        if (currentNum === "") {
+            currentDisplayNumber.textContent = "0";
+        }
     }
 }
