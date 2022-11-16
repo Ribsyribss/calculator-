@@ -5,6 +5,8 @@ let operator = "";
 const currentDisplayNumber = document.getElementById("currentNum");
 const previousDisplayNumber = document.getElementById("previousNum");
 
+window.addEventListener("keydown", handleKeyPress);
+
 const equal = document.querySelector(".equal");
 equal.addEventListener('click', () => {
     if (currentNum != "" && previousNum != "") {
@@ -80,6 +82,8 @@ function calculate() {
         previousNum = previousNum - currentNum;
     } else if (operator === "x") {
         previousNum = previousNum * currentNum;
+    } else if (operator === "%") {
+        previousNum = previousNum % currentNum;
     } else if (operator === "/") {
         if(currentNum <= 0) {
             previousNum = "Error"
@@ -154,24 +158,34 @@ function posNeg() {
     }
 }
 
-// function handleKeyPress(e) {
-//     e.preventDefault()
-//     if(e.key >= 0 && e.key <= 9) {
-//         handleNumber(e.key)
-//     }
-//     if (
-//         e.key === "Enter" ||
-//         (e.key === "=" && currentNum != "" && previousNum != "")
-//     ) {
-//         calculate();
-//     }
-//     if (e.key === "+" || e.key === "-" || e.key === "/") {
-//         handleOperator(e.key);
-//     }
-//     if (e.key === "*") {
-//         handleOperator("x");
-//     }
-//     if (e.key === ".") {
-//         addDecimal();
-//     }
-// }
+//Added keyboard function
+function handleKeyPress(e) {
+    e.preventDefault()
+    if(e.key >= 0 && e.key <= 9) {
+        handleNumber(e.key)
+    }
+    if (
+        e.key === "Enter" ||
+        (e.key === "=" && currentNum != "" && previousNum != "")
+    ) {
+        calculate();
+    }
+    if (e.key === "+" || e.key === "-" || e.key === "/") {
+        handleOperator(e.key);
+    }
+    if (e.key === "*") {
+        handleOperator("x");
+    }
+    if (e.key === "%") {
+        handleOperator("%");
+    }
+    if (e.key === ".") {
+        addDecimal();
+    }
+    if (e.key === "Backspace") {
+        back();
+    }
+    if (e.key === "Escape") {
+        clearCalculator();
+    }
+}
